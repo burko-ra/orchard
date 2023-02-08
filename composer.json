@@ -1,0 +1,12 @@
+{
+    "name": "romanburko/orchard",
+    "description": "test task",
+    "type": "project",
+    "license": "GNU",
+    "autoload": {
+        "psr-4": {
+            "Orchard\\": "src/"
+        }
+    },
+    "require": {}
+}
