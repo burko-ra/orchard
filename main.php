@@ -36,4 +36,4 @@ foreach ($treesToHarvest as $tree) {
 print($harvester);
 
 //Находим дерево по id
-var_dump($orchard->getTreeById(8));
+$thatTree = $orchard->getTreeById(8);
