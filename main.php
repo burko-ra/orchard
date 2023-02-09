@@ -29,7 +29,6 @@ print($orchard . "\n\n");
 $harvester = new Harvester();
 print("Инициализирован объект - сборщик фруктов\n");
 
-//Собираем фрукты
 $treesToHarvest = $orchard->getTrees();
 foreach ($treesToHarvest as $tree) {
     $harvester->harvest($tree);
@@ -37,5 +36,5 @@ foreach ($treesToHarvest as $tree) {
 print("Фрукты собраны\n");
 print($harvester . "\n\n");
 
-//Находим дерево по id
+//Согласно условиям задачи, у каждого дерева свой id
 $thatTree = $orchard->getTreeById(8);
