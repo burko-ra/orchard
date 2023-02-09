@@ -2,37 +2,38 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Orchard\Database;
-use Orchard\Harvester;
 use Orchard\Orchard;
-use Orchard\PrinterForHarvester;
-use Orchard\Repositories\TreeRepository;
+use Orchard\Harvester;
 
-$orchard = new Orchard();
-$db = new Database();
-$treeRepository = new TreeRepository($db);
-$harvester = new Harvester();
-
+//Определяем условия - сколько деревьев каждого вида
 $trees = [
     ['type' => 'apple tree', 'quantity' => 10],
     ['type' => 'pear tree', 'quantity' => 15]
     ];
 
-//Добавление деревьев
-foreach ($trees as $treeType) {
-    $quantity = $treeType['quantity'];
+//Инициализируем фруктовый сад (Orchard)
+$orchard = new Orchard();
+
+//Добавляем деревья
+foreach ($trees as $treeInfo) {
+    $quantity = $treeInfo['quantity'];
+    $type = $treeInfo['type'];
+
     for ($i = 0; $i < $quantity; $i += 1) {
-        $tree = $orchard->addTree($treeType['type']);
-        $tree->produceYield();
-        $treeRepository->save($tree);
+        $orchard->addTree($type);
     }
 }
+print($orchard . "\n");
 
-//Сбор плодов
-$treesToHarvest = $treeRepository->getAll();
-array_map(function($item) use ($harvester) {
-    $harvester->harvest($item);
-}, $treesToHarvest);
+//Инициализируем сборщик фруктов (Harvester)
+$harvester = new Harvester();
 
-//Выдача информации о собранных плодах
-PrinterForHarvester::print($harvester->getCargo());
+//Собираем фрукты
+$treesToHarvest = $orchard->getTrees();
+foreach ($treesToHarvest as $tree) {
+    $harvester->harvest($tree);
+}
+print($harvester);
+
+//Находим дерево по id
+var_dump($orchard->getTreeById(8));
