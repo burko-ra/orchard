@@ -4,13 +4,14 @@ namespace Orchard\Trees;
 
 class PearTree extends Tree
 {
-    private $id;
-    private $yield;
+    public static string $type = 'pear tree';
 
-    public static $type = 'pear tree';
+    /**
+     * @var array<string,int>
+     */
     private static $productivity = ['min' => 0, 'max' => 20];
 
-    protected function calculateYield()
+    protected function calculateYield(): int
     {
         return rand(self::$productivity['min'], self::$productivity['max']);
     }

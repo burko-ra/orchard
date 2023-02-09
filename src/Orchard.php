@@ -4,44 +4,59 @@ namespace Orchard;
 
 use Orchard\Trees\AppleTree;
 use Orchard\Trees\PearTree;
+use Orchard\Trees\Tree;
 
 class Orchard
 {
+    /**
+     * @var array<mixed>
+     */
     private $trees = [];
-    private $idCounter = 0;
+    private int $idCounter = 0;
+    /**
+     * @var array<mixed>
+     */
     private static $dictionary = [
         'apple tree' => AppleTree::class,
         'pear tree' => PearTree::class,
     ];
 
-    public function addTree($type)
+    public function addTree(string $type): object
     {
         $id = $this->getNextId();
         $class = self::$dictionary[$type];
-        $this->trees[$id] = new $class($id);
+        $tree = new $class($id);
+        $this->trees[$id] = $tree;
+        return $tree;
     }
 
-    private function getNextId()
+    private function getNextId(): int
     {
         $this->idCounter += 1;
         return $this->idCounter;
     }
 
+    /**
+     * @return array<int,object>
+     */
     public function getTrees()
     {
         return $this->trees;
     }
 
-    public function getTreeById($id)
+    public function getTreeById(int $id): object
     {
         return $this->trees[$id];
     }
 
+    /**
+     * @return array<string,int>
+     */
     public function getTreesSummary()
     {
         $trees = $this->trees;
         $mappedTrees = array_map(fn($item) => $item->getType(), $trees);
-        return array_reduce($mappedTrees, function($acc, $item) {
+        return array_reduce($mappedTrees, function ($acc, $item) {
             $acc[$item] = ($acc[$item] ?? 0) + 1;
             return $acc;
         }, []);

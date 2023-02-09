@@ -4,43 +4,43 @@ namespace Orchard\Trees;
 
 abstract class Tree
 {
-    private $id;
-    private $yield = 0;
+    private int $id;
+    private int $yield = 0;
 
-    public static $type = 'tree';
+    public static string $type = 'tree';
 
-    public function __construct($id)
+    public function __construct(int $id)
     {
         $this->id = $id;
         $this->yield = $this->calculateYield();
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getType()
+    public function getType(): string
     {
         return static::$type;
     }
 
-    public function getYield()
+    public function getYield(): int
     {
         return $this->yield;
     }
 
-    public function setYield($value)
+    public function setYield(int $value): void
     {
         $this->yield = $value;
     }
 
-    public function giveYield()
+    public function giveYield(): int
     {
         $yieldToGive = $this->getYield();
         $this->setYield(0);
         return $yieldToGive;
     }
 
-    abstract protected function calculateYield();
+    abstract protected function calculateYield(): int;
 }
