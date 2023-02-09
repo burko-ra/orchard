@@ -11,10 +11,10 @@ $trees = [
     ['type' => 'pear tree', 'quantity' => 15]
     ];
 
-//Инициализируем фруктовый сад (Orchard)
-$orchard = new Orchard();
 
-//Добавляем деревья
+$orchard = new Orchard();
+print("Инициализирован объект - фруктовый сад\n");
+
 foreach ($trees as $treeInfo) {
     $quantity = $treeInfo['quantity'];
     $type = $treeInfo['type'];
@@ -23,17 +23,19 @@ foreach ($trees as $treeInfo) {
         $orchard->addTree($type);
     }
 }
-print($orchard . "\n");
+print("Добавлены деревья в количестве, указанном в условии\n");
+print($orchard . "\n\n");
 
-//Инициализируем сборщик фруктов (Harvester)
 $harvester = new Harvester();
+print("Инициализирован объект - сборщик фруктов\n");
 
 //Собираем фрукты
 $treesToHarvest = $orchard->getTrees();
 foreach ($treesToHarvest as $tree) {
     $harvester->harvest($tree);
 }
-print($harvester);
+print("Фрукты собраны\n");
+print($harvester . "\n\n");
 
 //Находим дерево по id
 $thatTree = $orchard->getTreeById(8);
