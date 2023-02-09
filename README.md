@@ -5,7 +5,7 @@
 ### Установка
 
 ```sh
-$ git@github.com:burko-ra/orchard.git
+$ git clone git@github.com:burko-ra/orchard.git
 
 $ cd orchard
 
